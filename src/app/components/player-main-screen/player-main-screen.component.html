@@ -1,0 +1,39 @@
+<div class="player-main-screen full-screen-container" (keydown)="keyDown($event)" (mousemove)="mousemove()">
+  <div class="control-container">
+    <app-player-controls
+      [timePassed]="currentTimeMarker"
+      [timeDuration]="currentSlideDuration"
+      [fileName]="playlist[activeSlide]?.name"
+      [isPlaying]="currentVideoState == PlayerControls.play"
+      [isHide]="isPlayerControlsHidden"
+      [isPinned]="isPlayerControlsPinned"
+      (control)="playerControls($event)"
+    ></app-player-controls>
+  </div>
+  <div *ngIf="isLoaded && playlist.length; else NoMedia">
+    <div [ngClass]="{'inactive': i != activeSlide}"  class="list full-screen-container" *ngFor="let media of playlist; let i = index; trackBy: trackMedia">
+      <div [ngSwitch]="media.type" class="full-screen-container">
+          <app-player-video *ngSwitchCase="'.mp4'"
+                            [isActive]="i == activeSlide"
+                            [source]=media?.path></app-player-video>
+          <app-player-images *ngSwitchCase="'.jpg'"
+                             [source]=media?.path></app-player-images>
+          <app-player-images *ngSwitchCase="'.png'"
+                             [source]=media?.path></app-player-images>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #NoMedia>
+  <div  class="no-media">
+    <div class="message"> Screen {{screenId}} not found </div>
+  </div>
+</ng-template>
+
+<ng-template #Loading>
+  <div  class="no-media">
+    <div *ngIf="isLoaded" class="message"> Screen {{screenId}} not found </div>
+    <div *ngIf="!isLoaded" class="loading"> Loading ... </div>
+  </div>
+</ng-template>

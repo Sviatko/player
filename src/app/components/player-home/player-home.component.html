@@ -1,0 +1,9 @@
+<div class="home">
+  <form #home="ngForm" class="home-form" (ngSubmit)="play(home)" >
+    <label class="form-label">
+      Screen
+    </label>
+    <input class="input" id="login" [(ngModel)]="screenId" name="screenId"  required >
+    <button class="mat-form-field-subscript-wrapper" routerLink="/screen/{{screenId}}">Play</button>
+  </form>
+</div>

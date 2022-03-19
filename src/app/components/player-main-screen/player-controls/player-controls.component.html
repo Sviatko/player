@@ -1,0 +1,37 @@
+<div *ngIf="!isHide" class="player-control-bar">
+  <div class="control-top-bar">
+    <div class="left-controls">
+      <div class="icon icon-stop" (click)="playerControl(PlayerControls.stop)">
+        <mat-icon>stop</mat-icon>
+      </div>
+      <div class="icon icon-controls" (click)="playerControl(PlayerControls.play)">
+        <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+        <mat-icon *ngIf="isPlaying">pause</mat-icon>
+      </div>
+      <div class="icon icon-controls"  (click)="playerControl(PlayerControls.previous)">
+        <mat-icon>skip_previous</mat-icon>
+      </div>
+      <div class="icon icon-controls"  (click)="playerControl(PlayerControls.next)">
+        <mat-icon>skip_next</mat-icon>
+      </div>
+      <div class="duration">
+        {{timePassed*1000 | date:'HH:mm:ss' : '+0000'}}/{{timeDuration*1000 | date:'HH:mm:ss' : '+0000'}}
+      </div>
+    </div>
+    <div class="right-controls">
+      <div [ngClass]="{'pinned': isPinned}"  class="icon icon-right-side icon-pin" (click)="playerControl(PlayerControls.pin)">
+        <mat-icon class="mat-icon" [inline]="true"></mat-icon>
+      </div>
+      <div class="icon icon-right-side" (click)="playerControl(PlayerControls.fullScreen)">
+        <mat-icon class="mat-icon" [inline]="true">fullscreen</mat-icon>
+      </div>
+      <div class="icon icon-right-side" (click)="playerControl(PlayerControls.close)">
+        <mat-icon class="mat-icon" [inline]="true">close</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="control-info-bar">
+    <mat-icon [inline]="true">movie</mat-icon>
+    <span>{{fileName}}</span>
+  </div>
+</div>
